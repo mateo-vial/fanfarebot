@@ -4,7 +4,9 @@ from discord.ext import tasks
 import datetime
 from pytz import timezone
 
+
 class Fanfare(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
         self.fanfare.start()
@@ -26,6 +28,7 @@ class Fanfare(commands.Cog):
         next_run = now.replace(second=0, microsecond=0) + datetime.timedelta(minutes=1)
         await discord.utils.sleep_until(next_run)
         self.chan_fanfare = self.bot.get_channel(1062697676493295699)
+
 
 def setup(bot):
     bot.add_cog(Fanfare(bot))
