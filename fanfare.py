@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext import tasks
 import datetime
+from pytz import timezone
 
 class Fanfare(commands.Cog):
     def __init__(self, bot):
@@ -21,19 +22,9 @@ class Fanfare(commands.Cog):
     @fanfare.before_loop
     async def fanfare_before_loop(self):
         await self.bot.wait_until_ready()
-
-        # Compute the next minute
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(tz=timezone('Europe/Paris'))
         next_run = now.replace(second=0, microsecond=0) + datetime.timedelta(minutes=1)
-
-        # Troubleshooting
-        print(now)
-        print(next_run)
-
-        # Await until next minute
         await discord.utils.sleep_until(next_run)
-        print('sleep done')
-
         self.chan_fanfare = self.bot.get_channel(1062697676493295699)
 
 def setup(bot):
