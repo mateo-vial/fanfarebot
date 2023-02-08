@@ -1,8 +1,9 @@
+import discord
 from discord.ext import commands
 from discord.ext import tasks
 import datetime
 
-class fanfare(commands.Cog):
+class Fanfare(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.fanfare.start()
@@ -20,7 +21,20 @@ class fanfare(commands.Cog):
     @fanfare.before_loop
     async def fanfare_before_loop(self):
         await self.bot.wait_until_ready()
+
+        # Compute the next minute
+        now = datetime.datetime.now()
+        next_run = now.replace(second=0, microsecond=0) + datetime.timedelta(minutes=1)
+
+        # Troubleshooting
+        print(now)
+        print(next_run)
+
+        # Await until next minute
+        await discord.utils.sleep_until(next_run)
+        print('sleep done')
+
         self.chan_fanfare = self.bot.get_channel(1062697676493295699)
 
 def setup(bot):
-    bot.add_cog(fanfare(bot))
+    bot.add_cog(Fanfare(bot))
