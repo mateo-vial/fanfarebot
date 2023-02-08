@@ -9,5 +9,6 @@ async def on_ready():
     print('Le bot est prêt.')
 
 bot.load_extension('fanfare')
+bot.load_extension('combobreaker')
 
 bot.run(TOKEN)
