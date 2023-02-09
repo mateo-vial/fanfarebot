@@ -26,7 +26,7 @@ class Fanfare(commands.Cog):
                                          .format(hour, minute, emote_str))
 
         # Warning
-        if hour == minute-2 or (hour, minute) in [(23, 58), (0, 59)]:
+        if hour == minute+2 or (hour, minute) in [(23, 58), (0, 59)]:
             msg_content = ':warning: Attention :warning: fanfare dans 2 minutes'
             for user_id in user_ids_warn:
                 user = await self.bot.fetch_user(user_id)
