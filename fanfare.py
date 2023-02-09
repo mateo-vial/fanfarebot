@@ -4,10 +4,7 @@ from discord.ext import tasks
 import datetime
 from pytz import timezone
 
-user_ids_warn = [
-    92568533342371840,
-    135495101496426496,
-]
+user_ids_warn = [] # User ID (int)
 
 class Fanfare(commands.Cog):
 
@@ -36,7 +33,7 @@ class Fanfare(commands.Cog):
     async def fanfare_before_loop(self):
         await self.bot.wait_until_ready()
         now = datetime.datetime.now(tz=timezone('Europe/Paris'))
-        next_run = now.replace(second=0, microsecond=0) + datetime.timedelta(minutes=1)
+        next_run = now.replace(second=5, microsecond=0) + datetime.timedelta(minutes=1)
         await discord.utils.sleep_until(next_run)
         self.chan_fanfare = self.bot.get_channel(1062697676493295699)
 
