@@ -4,6 +4,10 @@ from discord.ext import tasks
 import datetime
 from pytz import timezone
 
+user_ids_warn = [
+    92568533342371840,
+    135495101496426496,
+]
 
 class Fanfare(commands.Cog):
 
@@ -20,6 +24,13 @@ class Fanfare(commands.Cog):
         if hour == minute:
             await self.chan_fanfare.send('{:02d}:{:02d} {}'
                                          .format(hour, minute, emote_str))
+
+        # Warning
+        if hour == minute-2 or (hour, minute) in [(23, 58), (0, 59)]:
+            msg_content = ':warning: Attention :warning: fanfare dans 2 minutes'
+            for user_id in user_ids_warn:
+                user = await self.bot.fetch_user(user_id)
+                await user.send(msg_content)
 
     @fanfare.before_loop
     async def fanfare_before_loop(self):
